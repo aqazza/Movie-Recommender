@@ -55,6 +55,10 @@ h1, h2, h3, .movie-title {
   .card {
     @apply relative flex flex-col items-center p-5 rounded-lg transition-all duration-500 ease-in-out;
     background: rgba(236, 149, 200, 0.2);
+    height: 100%; /* Ensure card takes full height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Space the elements inside evenly */
   }
 
   .card:hover {
@@ -68,24 +72,42 @@ h1, h2, h3, .movie-title {
 
   .info {
     @apply mt-4 text-white text-center;
+    height: auto;
+    flex-grow: 1; /* Ensure the description fills the available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .info h1 {
-    font-size: 1.5rem;
+    font-size: 1.2rem; /* Adjust to your preference */
     font-family: 'Roboto', sans-serif;
+    margin-bottom: 10px; /* Ensure proper spacing */
+    text-align: center;
+    max-height: 3rem; /* Limit title height to prevent overflow */
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
-
+  
   .info p {
     font-family: 'Quicksand', sans-serif;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit description to 3 lines */
+    -webkit-box-orient: vertical;
   }
 
   button {
     @apply mt-3 py-2 px-4 bg-white text-gray-900 rounded-lg transition-all duration-300 ease-in-out;
+    align-self: center;
   }
 
   button:hover {
-    @apply bg-green-400;
+    @apply bg-gradient-to-r from-orange-400 via-pink-500 to-red-500;
   }
+  
 }
 
 /* Movie Container Styles (Similar to recipe-container) */
