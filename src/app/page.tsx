@@ -2,10 +2,17 @@
 
 import { useEffect, useState } from 'react';
 
+// Define the movie interface to resolve type issues
+interface Movie {
+  id: number;
+  title: string;
+  [key: string]: any;
+}
+
 export default function Home() {
-  const [movies, setMovies] = useState([]);
-  const [preferences, setPreferences] = useState(''); // State to store user preferences
-  const [recommendations, setRecommendations] = useState(''); // State to store AI recommendations
+  const [movies, setMovies] = useState<Movie[]>([]); // Use Movie[] for movies state
+  const [preferences, setPreferences] = useState('');
+  const [recommendations, setRecommendations] = useState('');
 
   useEffect(() => {
     const fetchTrendingMovies = async () => {
@@ -23,29 +30,30 @@ export default function Home() {
     fetchTrendingMovies();
   }, []);
 
-    // Handle form submission
-    const handleSubmit = async (e) => {
-      e.preventDefault(); // Prevent form reload
-  
-      // Call OpenAI API for recommendations
-      const openAiResponse = await fetch('/api/get-recommendations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ preferences }),
-      });
-      
-      const result = await openAiResponse.json();
-      setRecommendations(result.recommendations);
-    };
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log('Form submitted!'); // Add this log
+
+    // Call OpenAI API for recommendations
+    const openAiResponse = await fetch('/api/get-recommendations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ preferences }),
+    });
+
+    const result = await openAiResponse.json();
+    setRecommendations(result.recommendations);
+  };
 
   return (
     <div>
       <h1>Trending Movies</h1>
       <ul>
         {movies
-          .filter(movie => movie.id && movie.title)
+          .filter((movie) => movie.id && movie.title)
           .map((movie) => (
             <li key={movie.id}>{movie.title}</li>
           ))}
