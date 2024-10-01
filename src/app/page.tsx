@@ -15,10 +15,12 @@ interface Movie {
 }
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
+  const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
   const [preferences, setPreferences] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
+  // Fetch both Trending and Top Rated Movies
   useEffect(() => {
     const fetchTrendingMovies = async () => {
       try {
@@ -26,13 +28,26 @@ export default function Home() {
           `https://api.themoviedb.org/3/trending/movie/week?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
         );
         const data = await response.json();
-        setMovies(data.results);
+        setTrendingMovies(data.results);
       } catch (error) {
         console.error("Error fetching trending movies:", error);
       }
     };
 
+    const fetchTopRatedMovies = async () => {
+      try {
+        const response = await fetch(
+          `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+        );
+        const data = await response.json();
+        setTopRatedMovies(data.results);
+      } catch (error) {
+        console.error("Error fetching top-rated movies:", error);
+      }
+    };
+
     fetchTrendingMovies();
+    fetchTopRatedMovies();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,9 +67,9 @@ export default function Home() {
 
   return (
     <div>
-      {/* Movie Container */}
+      {/* Trending Movies Section */}
       <div className="movie-container">
-        <h1>Trending Movies</h1> {/* Moved here for proper structure */}
+        <h1>Trending Movies</h1>
         <Swiper
           grabCursor={true}
           speed={400}
@@ -68,7 +83,44 @@ export default function Home() {
             1200: { slidesPerView: 3, spaceBetween: 20 },
           }}
         >
-          {movies
+          {trendingMovies
+            .filter((movie) => movie.id && movie.title)
+            .map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <div className="card">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                    alt={movie.title}
+                    className="post-img"
+                  />
+                  <div className="info">
+                    <h1>{movie.title}</h1>
+                    <p>{movie.overview.substring(0, 100)}...</p>
+                    <button>Read More</button>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+        </Swiper>
+      </div>
+
+      {/* Top Rated Movies Section */}
+      <div className="movie-container">
+        <h1>Top Rated Movies</h1>
+        <Swiper
+          grabCursor={true}
+          speed={400}
+          modules={[Scrollbar, Mousewheel]}  // Add modules here in Swiper v11
+          mousewheel={{ invert: false }}
+          scrollbar={{ draggable: true }}
+          slidesPerView={1}
+          spaceBetween={20}
+          breakpoints={{
+            900: { slidesPerView: 2, spaceBetween: 20 },
+            1200: { slidesPerView: 3, spaceBetween: 20 },
+          }}
+        >
+          {topRatedMovies
             .filter((movie) => movie.id && movie.title)
             .map((movie) => (
               <SwiperSlide key={movie.id}>
