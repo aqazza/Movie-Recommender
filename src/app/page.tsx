@@ -2,15 +2,16 @@
 
 import { useEffect, useState } from 'react';
 
-// Define the movie interface to resolve type issues
+// Define the movie interface to include backdrop_path
 interface Movie {
   id: number;
   title: string;
+  backdrop_path: string;
   [key: string]: any;
 }
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([]); // Use Movie[] for movies state
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [preferences, setPreferences] = useState('');
   const [recommendations, setRecommendations] = useState('');
 
@@ -30,12 +31,9 @@ export default function Home() {
     fetchTrendingMovies();
   }, []);
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form submitted!'); // Add this log
 
-    // Call OpenAI API for recommendations
     const openAiResponse = await fetch('/api/get-recommendations', {
       method: 'POST',
       headers: {
@@ -55,7 +53,30 @@ export default function Home() {
         {movies
           .filter((movie) => movie.id && movie.title)
           .map((movie) => (
-            <li key={movie.id}>{movie.title}</li>
+            <li key={movie.id} style={{ listStyleType: 'none', marginBottom: '20px' }}>
+              {/* Backdrop Image */}
+              <div
+                style={{
+                  backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`,
+                  height: '300px',
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  borderRadius: '10px',
+                }}
+              >
+                {/* Movie Title Overlay */}
+                <div
+                  style={{
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    color: 'white',
+                    padding: '10px',
+                    borderRadius: '10px',
+                  }}
+                >
+                  <h3>{movie.title}</h3>
+                </div>
+              </div>
+            </li>
           ))}
       </ul>
 
