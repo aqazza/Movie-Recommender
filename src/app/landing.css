@@ -50,6 +50,7 @@ body, html {
   color: #fff;
   font-size: 32px;
   animation: mainFadeIn 2s forwards;
+  margin-bottom: 20px;
   animation-delay: 1.6s;
   opacity: 0;
   display: flex;
