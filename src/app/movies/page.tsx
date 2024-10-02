@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Scrollbar, Mousewheel } from 'swiper/modules';  // Import modules correctly in Swiper v11
-import 'swiper/css';  // Main Swiper styles
-import 'swiper/css/scrollbar';  // Scrollbar styles
-import 'swiper/css/mousewheel';  // Mousewheel styles
+import { Scrollbar, Mousewheel } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/mousewheel';
 
 interface Movie {
   id: number;
@@ -20,10 +20,7 @@ export default function Home() {
   const [preferences, setPreferences] = useState("");
   const [recommendations, setRecommendations] = useState("");
 
-  // Scroll to top on page load or navigation
   useEffect(() => {
-    window.scrollTo(0, 0); // Ensure the page scrolls to the top when accessed
-
     const fetchTrendingMovies = async () => {
       try {
         const response = await fetch(
@@ -48,9 +45,10 @@ export default function Home() {
       }
     };
 
+    // Call the functions inside useEffect
     fetchTrendingMovies();
     fetchTopRatedMovies();
-  }, []);
+  }, []); // Empty dependency array ensures it runs only once when the component mounts
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,7 +73,7 @@ export default function Home() {
         <Swiper
           grabCursor={true}
           speed={400}
-          modules={[Scrollbar, Mousewheel]}  // Add modules here in Swiper v11
+          modules={[Scrollbar, Mousewheel]}
           mousewheel={{ invert: false }}
           scrollbar={{ draggable: true }}
           slidesPerView={1}
@@ -85,24 +83,22 @@ export default function Home() {
             1200: { slidesPerView: 3, spaceBetween: 20 },
           }}
         >
-          {trendingMovies
-            .filter((movie) => movie.id && movie.title)
-            .map((movie) => (
-              <SwiperSlide key={movie.id}>
-                <div className="card">
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                    alt={movie.title}
-                    className="post-img"
-                  />
-                  <div className="info">
-                    <h1>{movie.title}</h1>
-                    <p>{movie.overview.substring(0, 100)}...</p>
-                    <button>Read More</button>
-                  </div>
+          {trendingMovies.map((movie) => (
+            <SwiperSlide key={movie.id}>
+              <div className="card">
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                  alt={movie.title}
+                  className="post-img"
+                />
+                <div className="info">
+                  <h1>{movie.title}</h1>
+                  <p>{movie.overview.substring(0, 100)}...</p>
+                  <button>Read More</button>
                 </div>
-              </SwiperSlide>
-            ))}
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 
@@ -112,7 +108,7 @@ export default function Home() {
         <Swiper
           grabCursor={true}
           speed={400}
-          modules={[Scrollbar, Mousewheel]}  // Add modules here in Swiper v11
+          modules={[Scrollbar, Mousewheel]}
           mousewheel={{ invert: false }}
           scrollbar={{ draggable: true }}
           slidesPerView={1}
@@ -122,24 +118,22 @@ export default function Home() {
             1200: { slidesPerView: 3, spaceBetween: 20 },
           }}
         >
-          {topRatedMovies
-            .filter((movie) => movie.id && movie.title)
-            .map((movie) => (
-              <SwiperSlide key={movie.id}>
-                <div className="card">
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                    alt={movie.title}
-                    className="post-img"
-                  />
-                  <div className="info">
-                    <h1>{movie.title}</h1>
-                    <p>{movie.overview.substring(0, 100)}...</p>
-                    <button>Read More</button>
-                  </div>
+          {topRatedMovies.map((movie) => (
+            <SwiperSlide key={movie.id}>
+              <div className="card">
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                  alt={movie.title}
+                  className="post-img"
+                />
+                <div className="info">
+                  <h1>{movie.title}</h1>
+                  <p>{movie.overview.substring(0, 100)}...</p>
+                  <button>Read More</button>
                 </div>
-              </SwiperSlide>
-            ))}
+              </div>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
 

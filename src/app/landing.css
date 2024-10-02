@@ -6,8 +6,9 @@
 }
 
 body, html {
-   overflow: hidden;
+  overflow-y: auto;
 }
+
 
 .landing-container {
   width: 100%;
@@ -115,6 +116,7 @@ footer {
   animation-delay: 4s;
 }
 
+/* For the button hover and click animations */
 footer span {
   display: flex;
   align-items: center;
@@ -122,6 +124,31 @@ footer span {
   font-size: 12px;
   color: #232323;
   font-family: 'Poppins';
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+footer span:hover {
+  transform: scale(1.05);
+}
+
+footer span:active {
+  transform: scale(0.95);
+}
+
+/* Add a fade-out effect for when the page navigates */
+.fade-out {
+  animation: fadeOut 1s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95); /* Optional scale-down during fade */
+  }
 }
 
 footer i {
