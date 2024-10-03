@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";  // Import useRouter
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar, Mousewheel } from 'swiper/modules';
 import { FaFistRaised, FaSpaceShuttle, FaLaugh, FaSkull, FaHeart, FaFilm, FaMusic, FaPuzzlePiece, FaDragon, FaTheaterMasks, FaHistory, FaFire, FaRobot, FaPlane, FaFighterJet, FaHorseHead } from 'react-icons/fa';
@@ -28,6 +29,7 @@ interface Genre {
 }
 
 export default function Home() {
+  const router = useRouter(); // Initialize useRouter
   const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);
   const [topRatedMovies, setTopRatedMovies] = useState<Movie[]>([]);
   const [topRatedTVShows, setTopRatedTVShows] = useState<TVShow[]>([]);
@@ -114,30 +116,47 @@ export default function Home() {
       console.error("Error discovering movies by genre:", error);
     }
   };
-  
-// Mapping of genre IDs to corresponding icons
-const genreIcons = {
-  28: <FaFistRaised />,       // Action
-  12: <FaPlane />,            // Adventure
-  16: <FaDragon />,           // Animation
-  35: <FaLaugh />,            // Comedy
-  80: <FaFistRaised />,       // Crime
-  99: <FaFilm />,             // Documentary
-  18: <FaHeart />,            // Drama
-  10751: <FaHorseHead />,      // Family
-  14: <FaDragon />,           // Fantasy
-  36: <FaHistory />,          // History
-  27: <FaSkull />,            // Horror
-  10402: <FaMusic />,         // Music
-  9648: <FaPuzzlePiece />,    // Mystery
-  10749: <FaHeart />,         // Romance
-  878: <FaRobot />,           // Science Fiction
-  53: <FaFire />,             // Thriller
-  10752: <FaFighterJet />,    // War
-  37: <FaHorseHead />         // Western
-};
+
+  // Function to navigate to TMDb page
+  const handleReadMore = (movieId: number) => {
+    const tmdbUrl = `https://www.themoviedb.org/movie/${movieId}`;
+    window.open(tmdbUrl, '_blank'); // Open the TMDb page in a new tab
+  };
+
+  const handleReadMoreTVShow = (showId: number) => {
+    const tmdbUrl = `https://www.themoviedb.org/tv/${showId}`;
+    window.open(tmdbUrl, '_blank'); // Open the TMDb page for TV shows in a new tab
+  };
+
+  // Mapping of genre IDs to corresponding icons
+  const genreIcons: { [key: number]: JSX.Element } = {
+    28: <FaFistRaised />,       // Action
+    12: <FaPlane />,            // Adventure
+    16: <FaDragon />,           // Animation
+    35: <FaLaugh />,            // Comedy
+    80: <FaFistRaised />,       // Crime
+    99: <FaFilm />,             // Documentary
+    18: <FaHeart />,            // Drama
+    10751: <FaHorseHead />,      // Family
+    14: <FaDragon />,           // Fantasy
+    36: <FaHistory />,          // History
+    27: <FaSkull />,            // Horror
+    10402: <FaMusic />,         // Music
+    9648: <FaPuzzlePiece />,    // Mystery
+    10749: <FaHeart />,         // Romance
+    878: <FaRobot />,           // Science Fiction
+    53: <FaFire />,             // Thriller
+    10752: <FaFighterJet />,    // War
+    37: <FaHorseHead />         // Western
+  };
+
   return (
     <div>
+      {/* Button to navigate back to the landing page */}
+      <div className="back-button-container">
+        <button onClick={() => router.push('/')}>Back to Landing Page</button> {/* Navigates back */}
+      </div>
+
       {/* Trending Movies Section */}
       <div className="movie-container">
         <h1>Trending Movies</h1>
@@ -165,7 +184,7 @@ const genreIcons = {
                 <div className="info">
                   <h1>{movie.title}</h1>
                   <p>{movie.overview.substring(0, 100)}...</p>
-                  <button>Read More</button>
+                  <button onClick={() => handleReadMore(movie.id)}>Read More</button>
                 </div>
               </div>
             </SwiperSlide>
@@ -200,7 +219,7 @@ const genreIcons = {
                 <div className="info">
                   <h1>{movie.title}</h1>
                   <p>{movie.overview.substring(0, 100)}...</p>
-                  <button>Read More</button>
+                  <button onClick={() => handleReadMore(movie.id)}>Read More</button>
                 </div>
               </div>
             </SwiperSlide>
@@ -235,7 +254,7 @@ const genreIcons = {
                 <div className="info">
                   <h1>{show.name}</h1>
                   <p>{show.overview.substring(0, 100)}...</p>
-                  <button>Read More</button>
+                  <button onClick={() => handleReadMoreTVShow(show.id)}>Read More</button>
                 </div>
               </div>
             </SwiperSlide>
@@ -244,31 +263,31 @@ const genreIcons = {
       </div>
 
       {/* Search Section */}
-<div className="search-container">
-  <h1>Search Movies</h1>
-  <form onSubmit={handleSearch}>
-    <input
-      type="text"
-      placeholder="Search for movies..."
-      value={searchQuery}
-      onChange={(e) => setSearchQuery(e.target.value)}
-    />
-    <button type="submit">Search</button>
-  </form>
-</div>
+      <div className="search-container">
+        <h1>Search Movies</h1>
+        <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search for movies..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
 
-// Genres Section with Icons
-<div className="genres-container">
-  <h1>Discover by Genre</h1>
-  <div className="buttons">
-    {genres.map((genre) => (
-      <button key={genre.id} onClick={() => handleDiscoverByGenre(genre.id)}>
-        {genreIcons[genre.id]} {/* Add the icon */}
-        <p>{genre.name}</p> {/* Genre name */}
-      </button>
-    ))}
-  </div>
-</div>
+      {/* Genres Section */}
+      <div className="genres-container">
+        <h1>Discover by Genre</h1>
+        <div className="buttons">
+          {genres.map((genre) => (
+            <button key={genre.id} onClick={() => handleDiscoverByGenre(genre.id)}>
+              {genreIcons[genre.id]} {/* Add the icon */}
+              <p>{genre.name}</p> {/* Genre name */}
+            </button>
+          ))}
+        </div>
+      </div>
 
       {/* Discover Movies Section */}
       {discoverMovies.length > 0 && (
@@ -298,7 +317,7 @@ const genreIcons = {
                   <div className="info">
                     <h1>{movie.title}</h1>
                     <p>{movie.overview.substring(0, 100)}...</p>
-                    <button>Read More</button>
+                    <button onClick={() => handleReadMore(movie.id)}>Read More</button>
                   </div>
                 </div>
               </SwiperSlide>
