@@ -131,3 +131,121 @@ h1, h2, h3, .movie-title {
   color: #dda3b6;
   margin: 20px 0 40px;
 }
+
+/* Discover by Genre Section Styling */
+.genres-container {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.genres-container h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #ffffff90;
+}
+
+.buttons {
+  max-width: 100%; /* Remove the 500px limit to allow for 15 columns */
+  width: 100%;
+  border-radius: 20px;
+  background-color: #00000050;
+  border: 1px solid #ffffff30;
+  padding: 2rem;
+  backdrop-filter: blur(12px);
+  display: grid;
+  grid-template-columns: repeat(19, 1fr); /* Exactly 15 columns */
+  justify-content: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+
+.buttons::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #00000020;
+  z-index: -1;
+  border-radius: inherit;
+  transition: inset 500ms ease-in-out;
+}
+
+.buttons:hover::before {
+  inset: -2rem;
+  transition-timing-function: cubic-bezier(0.47, 1.64, 0.41, 0.8);
+}
+
+.buttons button {
+  background-color: #00000050;
+  border: 1px solid #ffffff30;
+  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1;
+  border-radius: 5px;
+  outline: none;
+  overflow: hidden;
+  cursor: pointer;
+  transition: 300ms ease-in-out;
+  position: relative;
+  isolation: isolate;
+  color: #ffffff90;
+}
+
+.buttons button p {
+  position: absolute;
+  width: 100%;
+  font-size: 0.8rem;
+  opacity: 0;
+  left: 0;
+  bottom: 0.5rem;
+  padding: 0.3rem;
+  text-align: center;
+  transition: all 150ms ease-in-out 0ms;
+  outline: none;
+  translate: 0 10px;
+}
+
+.buttons button:hover p {
+  opacity: 1;
+  translate: 0;
+  transition: all 300ms ease-in-out 150ms;
+}
+
+.buttons button:focus-visible,
+.buttons button:hover {
+  transform: scale(1.15);
+  z-index: 10;
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.buttons:has(button:focus-visible) button:not(:focus-visible),
+.buttons:has(button:hover) button:not(:hover) {
+  opacity: 50%;
+  scale: 85%;
+  z-index: -10;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --ani-speed: 300ms;
+  }
+  [scale-up] {
+    scale: 0;
+    animation: scale-up var(--ani-speed) forwards;
+    animation-delay: calc(var(--order, 0ms) * var(--ani-speed));
+  }
+}
+
+@keyframes scale-up {
+  0% {
+    scale: 0;
+  }
+  60% {
+    scale: 1.15;
+  }
+  100% {
+    scale: 1;
+  }
+}

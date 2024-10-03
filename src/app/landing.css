@@ -9,20 +9,46 @@ body, html {
   overflow-y: auto;
 }
 
-
 .landing-container {
   width: 100%;
   height: 100vh;
   background: #232323;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: flex-start; /* Align items to the top */
 }
+
+.title-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Control spacing from the top */
+}
+
+@keyframes formFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(30px); /* Slide the form up */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0); /* End at the original position */
+  }
+}
+
+.form-section {
+  margin-top: 350px; /* Add some spacing to push the form lower */
+  opacity: 0; /* Start invisible */
+  animation: formFadeIn 1.5s ease-out forwards; /* Apply the animation */
+  animation-delay: 5s; /* Optional: delay animation by 1 second */
+}
+
 
 .landing-box {
   width: 250px;
-  height: 250px;
-  position: relative;
+  height: auto; /* Adjust height to fit content */
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -33,6 +59,7 @@ body, html {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center; /* Center the title horizontally */
   height: 50px;
 }
 
@@ -77,6 +104,7 @@ body, html {
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center; /* Center the role horizontally */
   height: 30px;
   margin-top: -10px;
 }
