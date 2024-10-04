@@ -159,7 +159,69 @@ const genreIcons: { [key: number]: JSX.Element } = {
       <div className="back-button-container">
         <button onClick={() => router.push('/')}>Back to Prompt</button> {/* Navigates back */}
       </div>
+      {/* Search Section */}
+      <div className="search-container">
+        <h1>Search Movies</h1>
+        <form onSubmit={handleSearch}>
+          <input
+            type="text"
+            placeholder="Search for movies..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          <button type="submit">Search</button>
+        </form>
+      </div>
 
+      {/* Genres Section */}
+      <div className="genres-container">
+        <h1>Discover by Genre</h1>
+        <div className="buttons">
+          {genres.map((genre) => (
+            <button key={genre.id} onClick={() => handleDiscoverByGenre(genre.id)}>
+              {genreIcons[genre.id]} {/* Add the icon */}
+              <p>{genre.name}</p> {/* Genre name */}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Discover Movies Section */}
+      {discoverMovies.length > 0 && (
+        <div className="movie-container">
+          <h1>Discovered Movies</h1>
+          <Swiper
+            grabCursor={true}
+            speed={400}
+            modules={[Scrollbar, Mousewheel]}
+            mousewheel={{ invert: false }}
+            scrollbar={{ draggable: true }}
+            slidesPerView={1}
+            spaceBetween={20}
+            breakpoints={{
+              900: { slidesPerView: 2, spaceBetween: 20 },
+              1200: { slidesPerView: 3, spaceBetween: 20 },
+            }}
+          >
+            {discoverMovies.map((movie) => (
+              <SwiperSlide key={movie.id}>
+                <div className="card">
+                  <img
+                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+                    alt={movie.title}
+                    className="post-img"
+                  />
+                  <div className="info">
+                    <h1>{movie.title}</h1>
+                    <p>{movie.overview.substring(0, 100)}...</p>
+                    <button onClick={() => handleReadMore(movie.id)}>Read More</button>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      )}
       {/* Trending Movies Section */}
       <div className="movie-container">
         <h1>Trending Movies</h1>
@@ -265,69 +327,7 @@ const genreIcons: { [key: number]: JSX.Element } = {
         </Swiper>
       </div>
 
-      {/* Search Section */}
-      <div className="search-container">
-        <h1>Search Movies</h1>
-        <form onSubmit={handleSearch}>
-          <input
-            type="text"
-            placeholder="Search for movies..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <button type="submit">Search</button>
-        </form>
-      </div>
 
-      {/* Genres Section */}
-      <div className="genres-container">
-        <h1>Discover by Genre</h1>
-        <div className="buttons">
-          {genres.map((genre) => (
-            <button key={genre.id} onClick={() => handleDiscoverByGenre(genre.id)}>
-              {genreIcons[genre.id]} {/* Add the icon */}
-              <p>{genre.name}</p> {/* Genre name */}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Discover Movies Section */}
-      {discoverMovies.length > 0 && (
-        <div className="movie-container">
-          <h1>Discovered Movies</h1>
-          <Swiper
-            grabCursor={true}
-            speed={400}
-            modules={[Scrollbar, Mousewheel]}
-            mousewheel={{ invert: false }}
-            scrollbar={{ draggable: true }}
-            slidesPerView={1}
-            spaceBetween={20}
-            breakpoints={{
-              900: { slidesPerView: 2, spaceBetween: 20 },
-              1200: { slidesPerView: 3, spaceBetween: 20 },
-            }}
-          >
-            {discoverMovies.map((movie) => (
-              <SwiperSlide key={movie.id}>
-                <div className="card">
-                  <img
-                    src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
-                    alt={movie.title}
-                    className="post-img"
-                  />
-                  <div className="info">
-                    <h1>{movie.title}</h1>
-                    <p>{movie.overview.substring(0, 100)}...</p>
-                    <button onClick={() => handleReadMore(movie.id)}>Read More</button>
-                  </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
     </div>
   );
 }
