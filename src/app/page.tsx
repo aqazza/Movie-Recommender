@@ -55,27 +55,29 @@ export default function LandingPage() {
 
       {/* Input Form Section - Placed separately below the title */}
       <div className="form-section">
-        <form onSubmit={handleSubmit}>
-          <h2>Enter your movie preferences</h2>
-          <textarea
-            value={preferences}
-            onChange={(e) => setPreferences(e.target.value)}
-            placeholder="e.g., I like action movies, comedies, or movies like Inception."
-            rows={4}
-            cols={50}
-          />
-          <br />
-          <button type="submit">Get Recommendations</button>
-        </form>
+  <form onSubmit={handleSubmit}>
+    <h2>Enter your movie preferences</h2>
+    <textarea
+      value={preferences}
+      onChange={(e) => setPreferences(e.target.value)}
+      placeholder="e.g., I like action movies, comedies, or movies like Inception."
+      rows={4}
+      cols={50}
+      style={{ color: 'black' }} // This sets the typed text color to black
+    />
+    <br />
+    <button type="submit">Get Recommendations</button>
+  </form>
 
-        {/* Display recommendations if they exist */}
-        {recommendations && (
-          <div>
-            <h2>AI Movie Recommendations</h2>
-            <p>{recommendations}</p>
-          </div>
-        )}
-      </div>
+  {/* Display recommendations if they exist */}
+  {recommendations && (
+    <div>
+      <h2>AI Movie Recommendations</h2>
+      <p>{recommendations}</p>
+    </div>
+  )}
+</div>
+
 
       <footer className="landing-texto" onClick={handleClick}>
         <span>

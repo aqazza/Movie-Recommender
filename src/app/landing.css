@@ -1,11 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap");
 
 * {
   margin: 0;
   padding: 0;
 }
 
-body, html {
+body,
+html {
   overflow-y: auto;
 }
 
@@ -37,15 +38,15 @@ body, html {
     transform: translateY(0); /* End at the original position */
   }
 }
-
 .form-section {
   margin-top: 350px; /* Add some spacing to push the form lower */
   opacity: 0; /* Start invisible */
   animation: formFadeIn 1.5s ease-out forwards; /* Apply the animation */
   animation-delay: 5s; /* Optional: delay animation by 1 second */
 }
-
-
+.text-input {
+  color: black; /* Ensures typed text is black */
+}
 .landing-box {
   width: 250px;
   height: auto; /* Adjust height to fit content */
@@ -68,12 +69,12 @@ body, html {
   height: inherit;
   background: #ffb510;
   position: absolute;
-  animation: mainBlock 2s cubic-bezier(.74, .06, .4, .92) forwards;
+  animation: mainBlock 2s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
   display: flex;
 }
 
 .landing-title h1 {
-  font-family: 'Poppins';
+  font-family: "Poppins";
   color: #fff;
   font-size: 32px;
   animation: mainFadeIn 2s forwards;
@@ -90,7 +91,7 @@ body, html {
   height: 0px;
   border-radius: 50%;
   background: #ffb510;
-  animation: popIn 0.8s cubic-bezier(.74, .06, .4, .92) forwards;
+  animation: popIn 0.8s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
   animation-delay: 2s;
   margin-left: 5px;
   margin-top: -10px;
@@ -114,7 +115,7 @@ body, html {
   height: inherit;
   background: #e91e63;
   position: absolute;
-  animation: secBlock 2s cubic-bezier(.74, .06, .4, .92) forwards;
+  animation: secBlock 2s cubic-bezier(0.74, 0.06, 0.4, 0.92) forwards;
   animation-delay: 2s;
   display: flex;
 }
@@ -124,7 +125,7 @@ body, html {
   animation-delay: 3.2s;
   opacity: 0;
   font-weight: 400;
-  font-family: 'Lato';
+  font-family: "Lato";
   color: #ffffff;
   font-size: 12px;
   text-transform: uppercase;
@@ -152,7 +153,7 @@ footer span {
   justify-content: center;
   font-size: 12px;
   color: #232323;
-  font-family: 'Poppins';
+  font-family: "Poppins";
   cursor: pointer;
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
@@ -267,7 +268,7 @@ footer i {
 @keyframes icon {
   0% {
     opacity: 0;
-    transform: scale(0.0);
+    transform: scale(0);
   }
   50% {
     opacity: 1;

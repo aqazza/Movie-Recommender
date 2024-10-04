@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";  // Import useRouter
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar, Mousewheel } from 'swiper/modules';
-import { FaFistRaised, FaSpaceShuttle, FaLaugh, FaSkull, FaHeart, FaFilm, FaMusic, FaPuzzlePiece, FaDragon, FaTheaterMasks, FaHistory, FaFire, FaRobot, FaPlane, FaFighterJet, FaHorseHead } from 'react-icons/fa';
+import { FaFistRaised, FaSpaceShuttle, FaLaugh, FaExclamationTriangle, FaShieldAlt, FaSkull, FaHeart, FaFilm, FaMusic, FaChild, FaDragon, FaTheaterMasks, FaLandmark, FaMagic, FaRocket, FaPlane, FaHorse, FaQuestionCircle, FaTv, FaKissWinkHeart } from 'react-icons/fa';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/mousewheel';
@@ -129,32 +129,35 @@ export default function Home() {
   };
 
   // Mapping of genre IDs to corresponding icons
-  const genreIcons: { [key: number]: JSX.Element } = {
-    28: <FaFistRaised />,       // Action
-    12: <FaPlane />,            // Adventure
-    16: <FaDragon />,           // Animation
-    35: <FaLaugh />,            // Comedy
-    80: <FaFistRaised />,       // Crime
-    99: <FaFilm />,             // Documentary
-    18: <FaHeart />,            // Drama
-    10751: <FaHorseHead />,      // Family
-    14: <FaDragon />,           // Fantasy
-    36: <FaHistory />,          // History
-    27: <FaSkull />,            // Horror
-    10402: <FaMusic />,         // Music
-    9648: <FaPuzzlePiece />,    // Mystery
-    10749: <FaHeart />,         // Romance
-    878: <FaRobot />,           // Science Fiction
-    53: <FaFire />,             // Thriller
-    10752: <FaFighterJet />,    // War
-    37: <FaHorseHead />         // Western
-  };
+// Mapping of genre IDs to corresponding icons (all unique, no repeats)
+const genreIcons: { [key: number]: JSX.Element } = {
+  28: <FaFistRaised />,        // Action
+  12: <FaPlane />,             // Adventure
+  16: <FaDragon />,            // Animation
+  35: <FaLaugh />,             // Comedy
+  80: <FaTheaterMasks />,      // Crime
+  99: <FaFilm />,              // Documentary
+  18: <FaHeart />,             // Drama
+  10751: <FaChild />,          // Family (Changed to FaChild)
+  14: <FaMagic />,             // Fantasy (Changed to FaMagic)
+  36: <FaLandmark />,          // History (Changed to FaLandmark)
+  27: <FaSkull />,             // Horror
+  10402: <FaMusic />,          // Music
+  9648: <FaQuestionCircle />,  // Mystery (Changed to FaQuestionCircle)
+  10749: <FaKissWinkHeart />,  // Romance (Changed to FaKissWinkHeart)
+  878: <FaSpaceShuttle />,           // Science Fiction (Changed to FaRocket)
+  53: <FaExclamationTriangle />, // Thriller (Changed to FaExclamationTriangle)
+  10752: <FaShieldAlt />,      // War (Changed to FaShieldAlt)
+  37: <FaHorse />,             // Western (Changed to FaHorse)
+  10770: <FaTv />              // TV Movie
+};
+
 
   return (
     <div>
       {/* Button to navigate back to the landing page */}
       <div className="back-button-container">
-        <button onClick={() => router.push('/')}>Back to Landing Page</button> {/* Navigates back */}
+        <button onClick={() => router.push('/')}>Back to Prompt</button> {/* Navigates back */}
       </div>
 
       {/* Trending Movies Section */}
