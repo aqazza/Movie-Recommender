@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";  // Import useRouter
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Scrollbar, Mousewheel } from 'swiper/modules';
-import { FaFistRaised, FaSpaceShuttle, FaLaugh, FaExclamationTriangle, FaShieldAlt, FaSkull, FaHeart, FaFilm, FaMusic, FaChild, FaDragon, FaTheaterMasks, FaLandmark, FaMagic, FaRocket, FaPlane, FaHorse, FaQuestionCircle, FaTv, FaKissWinkHeart } from 'react-icons/fa';
+import { FaFistRaised, FaSpaceShuttle, FaLaugh, FaExclamationTriangle, FaShieldAlt, FaSkull, FaHeart, FaFilm, FaMusic, FaChild, FaDragon, FaTheaterMasks, FaLandmark, FaMagic, FaPlane, FaHorse, FaQuestionCircle, FaTv, FaKissWinkHeart } from 'react-icons/fa';
 import 'swiper/css';
 import 'swiper/css/scrollbar';
 import 'swiper/css/mousewheel';
