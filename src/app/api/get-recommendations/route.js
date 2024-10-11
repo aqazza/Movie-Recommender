@@ -19,7 +19,7 @@ export async function POST(req) {
           { role: 'system', content: 'You are a movie recommendation engine.' },
           { role: 'user', content: `Recommend movies based on these preferences: ${preferences}` }
         ],
-        max_tokens: 100,
+        max_tokens: 1000,
       }),
     });
 
